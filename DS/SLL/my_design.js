@@ -1,4 +1,4 @@
-class Node {
+class ListNode {
   constructor(val = 0, next) {
     this.val = val;
     this.next = next;
@@ -7,30 +7,29 @@ class Node {
 
 class LinkedList {
   constructor(val) {
-    this.head = new Node(val);
+    this.head = new ListNode(val);
   }
   isEmpty() {
     return !this.head;
   }
   insert(val) {
-    if (this.isEmpty()) return this.head = new Node(val);
+    if (this.isEmpty()) return this.head = new ListNode(val);
 
     let currentNode = this.head;
     while (currentNode.next) currentNode = currentNode.next;
-    currentNode.next = new Node(val);
+    currentNode.next = new ListNode(val);
     return this;
   }
   insertAt(pos, val) {
-    let currentNode = new Node(0, this.head);
+    let currentNode = new ListNode(0, this.head);
     let curPos = 1;
 
     while (currentNode.next && curPos !== pos) {
-      if (!currentNode.next) return false;
       currentNode = currentNode.next;
       curPos++;
     }
 
-    currentNode.next = new Node(val, currentNode.next);
+    currentNode.next = new ListNode(val, currentNode.next);
     return true;
   }
   search(val) {
@@ -40,7 +39,7 @@ class LinkedList {
     return currentNode || false;
   }
   searchAt(pos) {
-    let currentNode = new Node(0, this.head);
+    let currentNode = new ListNode(0, this.head);
     for (let curPos = 1; curPos !== pos && currentNode; curPos++)
       currentNode = currentNode.next;
     return currentNode || false;
@@ -80,7 +79,7 @@ class LinkedList {
     currentNode.next = currentNode.next.next;
   }
   deleteAt(pos) {
-    let currentNode = new Node(0, this.head);
+    let currentNode = new ListNode(0, this.head);
     let curPos = 1;
     while (currentNode.next && curPos !== pos) {
       currentNode = currentNode.next;
