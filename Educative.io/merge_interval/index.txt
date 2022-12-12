@@ -1,0 +1,10 @@
+merge interval method appliable for finding the intersection or gap or overlap intervals.
+
+Six type of interval
+1. Interval one is superset of interval 2 (s1 > s2 and e1 > e2)
+1. Interval two is superset of interval 1 (s1 < s2 and e1 < e2)
+1. Interval two and interval 1 are overlapping with each other. (e1 < s2 and e1 < e2)
+
+1. Sort the start interval always.
+2. store the one interval called current interval for comparing.
+3. Compare it with next interval and changes current interval accordingly.
