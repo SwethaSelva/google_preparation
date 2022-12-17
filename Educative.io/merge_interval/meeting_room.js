@@ -5,7 +5,7 @@ class Interval {
   }
 }
 
-class MaxHeapForEndTime {
+class MinHeapForEndTime {
   constructor () {
     this.heap = [];
   }
@@ -19,7 +19,7 @@ class MaxHeapForEndTime {
     let childIdx = this.heap.push(val) - 1;
     let parentIdx = this.findParent(childIdx);
     while (parentIdx >= 0) {
-      if (this.heap[parentIdx] >= this.heap[childIdx]) return true;
+      if (this.heap[parentIdx] <= this.heap[childIdx]) return true;
       [this.heap[parentIdx], this.heap[childIdx]] = [this.heap[childIdx], this.heap[parentIdx]];
       childIdx = parentIdx;
       parentIdx = this.findParent(parentIdx);
@@ -55,16 +55,14 @@ class MaxHeapForEndTime {
 }
 
 function findSets(intervals){
-  let maxHeap = new MaxHeapForEndTime();
+  let minHeap = new MinHeapForEndTime();
   intervals = intervals.sort((a,b) => a[0] - b[0]);
-  maxHeap.insert(intervals[0]);
+  minHeap.insert(intervals[0][1]);
   for (let i = 1; i < intervals.length; i++) {
-    if (maxHeap.findPeak()[1] < intervals[i][1] && intervals[i][0] >= maxHeap.findPeak()[1]) {
-      maxHeap.deleteMaxVal();
-    }
-    maxHeap.insert(intervals[i]);
+    if (minHeap.findPeak() <= intervals[i][0]) minHeap.deleteMaxVal();
+    minHeap.insert(intervals[i][1]);
   }
-  return maxHeap.findLength();
+  return minHeap.findLength();
 }
 console.log(findSets([[2, 8], [3, 4], [3, 9], [5, 11], [8, 20], [11, 15]])); // 3
 console.log(findSets([[1, 2], [4, 6], [3, 4], [7, 8]])); // 1

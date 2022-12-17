@@ -4,7 +4,7 @@
  * @return {number[][]}
  */
 var insert = function (intervals, newInterval) {
-  
+
 };
 
 function findClosetSmall(intervals, target) {
