@@ -1,19 +1,3 @@
-// Definition for singly-linked list.
-function ListNode(val = 0, next = null) {
-  this.val = val;
-  this.next = next;
-}
-
-function arrToLL (arr) {
-  let list = new ListNode(arr[0]);
-  let curList = list;
-  for (let i = 1; i < arr.length; i++) {
-    curList.next = new ListNode(arr[i]);
-    curList = curList.next;
-  }
-  return list;
-}
-
 /**
  * @param {ListNode} head
  * @return {ListNode}
@@ -29,35 +13,26 @@ var reverseEvenLengthGroups = function(head) {
   let curCount = 0;
   let group = 1;
   while (curNode) {
-
-    // odd group
-    // Handle last group
-    if (length - curCount < group) group = length - curCount;
-    if (group % 2) {
-      while (curCount != group) {
-        curNode = curNode.next;
-        curCount++;
-      }
-      group++;
-    }
-
-    // even group
     // Handle last group
     if (length - curCount < group) group = length - curCount;
     if (group % 2 === 0) {
       let [startNode, endNode] = reverseNode(curNode, group);
+
       prevNode.next = startNode;
-      curNode = endNode;
-
-      group++;
+      prevNode = curNode;
+      curNode = endNode.next;
       curCount += group;
+      group++;
+    } else {
+      for (let counter = group; counter > 0 && curNode; counter--) {
+        prevNode = curNode;
+        curNode = curNode.next;
+      }
+      curCount += group;
+      group++;
     }
-
-    curCount++;
-    prevNode = curNode;
-    curNode = curNode.next;
   }
-  return head;
+  return JSON.stringify(head);
 };
 
 function reverseNode (node, counter) {
@@ -76,12 +51,21 @@ function reverseNode (node, counter) {
   return [head, node];
 }
 
-console.log(reverseNode(arrToLL([11,12,13,14,15]), 6));
+let arrToLL = require('./index');
+console.log(reverseEvenLengthGroups(arrToLL([11,12,13,14,15])));
 console.log('---------------------------------------------------------------------------------');
-console.log(reverseNode(arrToLL([1,2,3,4]), 2));
+console.log(reverseEvenLengthGroups(arrToLL([11,12,13,14,15,16,17,18])));
 console.log('---------------------------------------------------------------------------------');
-console.log(reverseNode(arrToLL([10,1,2,3,4,5]), 1));
+console.log(reverseEvenLengthGroups(arrToLL([])));
 console.log('---------------------------------------------------------------------------------');
-console.log(reverseNode(arrToLL([28,21,14,7]), 1));
+console.log(reverseEvenLengthGroups(arrToLL([1,2,3,4])));
 console.log('---------------------------------------------------------------------------------');
-console.log(reverseNode(arrToLL([1,2]), 2));
+console.log(reverseEvenLengthGroups(arrToLL([10,1,2,3,4,5])));
+console.log('---------------------------------------------------------------------------------');
+console.log(reverseEvenLengthGroups(arrToLL([28,21,14,7])));
+console.log('---------------------------------------------------------------------------------');
+console.log(reverseEvenLengthGroups(arrToLL([1,2])));
+console.log('---------------------------------------------------------------------------------');
+console.log(reverseEvenLengthGroups(arrToLL([1,3,2,4,5,6,10,9,8,7,11,12,13,14,15,21,20,19,18,17,16])));
+console.log('---------------------------------------------------------------------------------');
+console.log(reverseEvenLengthGroups(arrToLL([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21])));
