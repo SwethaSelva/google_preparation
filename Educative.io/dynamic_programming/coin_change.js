@@ -14,7 +14,7 @@ function coinChangeRecursive (coins, amount) {
   return result;
 }
 
-// Top-down approach
+// Top-down approach - Added Cache for repeated subproblem.
 function coinChangeDP1(coins, amount, cache = new Array(amount + 1).fill(-1)) {
   if (amount <= 0) return amount;
   
@@ -35,7 +35,7 @@ function coinChangeDP1(coins, amount, cache = new Array(amount + 1).fill(-1)) {
   return result;
 }
 
-// Bottom-up approach
+// Bottom-up approach: 1D - Build coinChange for each and every amount till it reaches actual amount.
 function coinChange (coins, amount) {
   let cache = new Array(amount + 1).fill(Infinity);
   cache[0] = 0;
