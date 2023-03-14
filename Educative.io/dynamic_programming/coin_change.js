@@ -36,7 +36,7 @@ function coinChangeDP1(coins, amount, cache = new Array(amount + 1).fill(-1)) {
 }
 
 // Bottom-up approach: 1D - Build coinChange for each and every amount till it reaches actual amount.
-function coinChange (coins, amount) {
+function coinChange1 (coins, amount) {
   let cache = new Array(amount + 1).fill(Infinity);
   cache[0] = 0;
 
@@ -49,6 +49,18 @@ function coinChange (coins, amount) {
   }
   return cache[amount] === Infinity? -1: cache[amount];
 }
+
+var coinChange = function(coins, amount) {
+  let dp = new Array(amount + 1).fill(Infinity);
+  dp[0] = 0;
+  coins.sort((a, b) => a - b);
+  for (let coin of coins) {
+    for (let i = coin; i <= amount; i++) {
+      dp[i] = Math.min(dp[i], 1 + dp[i - coin]);
+    }
+  }
+  return dp[amount] === Infinity? -1: dp[amount];
+};
 
 console.log(coinChange([1, 2, 5], 11)); // 3
 console.log(coinChange([2], 4)); // 2
