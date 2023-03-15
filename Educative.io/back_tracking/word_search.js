@@ -1,4 +1,4 @@
-function wordSearch(grid, word){
+function wordSearch(grid, word) {
   let startIdxs = [];
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[i].length; j++) {
@@ -17,7 +17,7 @@ function wordSearch(grid, word){
 
   function backtracking(row, col, pos = 1) {
     if (pos === word.length) return true;
-  
+
     for (let i = 0; i < dirs.length; i++) {
       let curRow = row + dirs[i][0];
       let curCol = col + dirs[i][1];
@@ -36,7 +36,6 @@ function wordSearch(grid, word){
   return false;
 }
 
-
 console.log(wordSearch([
   ['K', 'I', 'C', 'D', 'L', 'J', 'M', 'R'],
   ['V', 'M', 'S', 'P', 'C', 'F', 'A', 'G'],
@@ -51,8 +50,13 @@ console.log(wordSearch([
 console.log(wordSearch([
   ['D', 'O', 'C', 'A', 'L'],
   ['O', 'J', 'N', 'L', 'Z'],
-  ['T', 'Z', 'Y', 'L' ,'K'],
+  ['T', 'Z', 'Y', 'L', 'K'],
   ['G', 'Y', 'R', 'O', 'U'],
   ['F', 'K', 'M', 'W', 'P']
 ], 'callous'));
 
+console.log(wordSearch([
+  ["A", "B", "C", "E"],
+  ["S", "F", "E", "S"],
+  ["A", "D", "E", "E"]
+], "ABCESEEEFS"));
