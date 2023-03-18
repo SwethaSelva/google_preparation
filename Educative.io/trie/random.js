@@ -29,7 +29,7 @@ RandomizedSet.prototype.remove = function(val) {
 */
 RandomizedSet.prototype.getRandom = function() {
   let index = Math.floor(Math.random() * this.arr.length);
-  console.log({ index })
+
   while (!this.set[this.arr[index]]) {
       index = Math.floor(Math.random() * this.arr.length);
   }

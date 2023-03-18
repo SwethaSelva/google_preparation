@@ -1,14 +1,14 @@
+const LETTER = {
+  2: 'abc',
+  3: 'def',
+  4: 'ghi',
+  5: 'jkl',
+  6: 'mno',
+  7: 'pqrs',
+  8: 'tuv',
+  9: 'wxyz'
+};
 function letterCombinations(digits){
-  let letter = {
-    2: 'abc',
-    3: 'def',
-    4: 'ghi',
-    5: 'jkl',
-    6: 'mno',
-    7: 'pqrs',
-    8: 'tuv',
-    9: 'wxyz'
-  };
 
   let combs = [];
   formComb(digits);
@@ -17,9 +17,9 @@ function letterCombinations(digits){
     if (currentIdx >= digits.length) return combs.push(result);
 
     // To skip the '1'
-    while (currentIdx < digits.length && !letter[digits[currentIdx]]) currentIdx++;
+    while (currentIdx < digits.length && !LETTER[digits[currentIdx]]) currentIdx++;
 
-    let chars = letter[digits[currentIdx]];
+    let chars = LETTER[digits[currentIdx]];
     if (!chars) return combs;
 
     for (let i = 0; i < chars.length; i++) {
