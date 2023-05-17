@@ -9,16 +9,13 @@ function search(arr, t) {
     mid = Math.floor((start + end) / 2);
     if (arr[mid] === t) return true;
 
-    if (arr[start] > arr[mid]) {
-      if (arr[mid] > t) end = mid - 1;
-      else {
-        if (arr[start] < t) end = mid - 1;
-        else start = mid + 1;
-      }
-    } else {
-      if (arr[start] < t && arr[mid] > t) end = mid - 1
+    // if (arr[start] > arr[mid]) {
+      if (arr[start] < t && arr[mid] > t) end = mid - 1;
       else start = mid + 1;
-    }
+    // } else {
+    //   if (arr[start] < t && arr[mid] > t) end = mid - 1
+    //   else start = mid + 1;
+    // }
   }
   return false;
 }
