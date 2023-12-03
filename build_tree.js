@@ -8,7 +8,6 @@ var buildTree = function(preorder, inorder) {
 
     function recursive (sIdx = 0, eIdx = inorder.length - 1) {
         let nodeVal = preorder.shift();
-console.log({ preorder })
         let nodeIdx = -1;
         for (let i = sIdx; i <= eIdx; i++) {
             if (inorder[i] === nodeVal) {

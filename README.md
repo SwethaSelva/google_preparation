@@ -1,2 +1,2 @@
 # google_preparation
-This repo contains data structure, algo and system design. Specifically focused on round one.
+This repo contains data structure, algo. Specifically focused on online site interviews.

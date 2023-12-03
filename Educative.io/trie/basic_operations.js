@@ -14,18 +14,18 @@ class Trie {
     let currentNode = this.root;
     for (let i = 0; i < word.length; i++) {
       if (!currentNode[word[i]]) currentNode[word[i]] = new TrieNode(word[i]);
-      if (i + 1 === word.length) currentNode[word[i]].isWord = true;
       currentNode = currentNode[word[i]].children;
     }
+    currentNode.isWord = true;
     return this.root;
   }
   search(word) {
     let currentNode = this.root;
     for (let i = 0; i < word.length; i++) {
       if (!currentNode[word[i]]) return false;
-      if (i + 1 === word.length && !currentNode[word[i]].isWord) return false;
       currentNode = currentNode[word[i]].children;
     }
+    if (!currentNode.isWord) return false;
     return true;
   }
   search_prefix(prefix) {

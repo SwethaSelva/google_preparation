@@ -92,7 +92,8 @@ class MinHeap {
     return this.data.length;
   }
 }
-function medianSlidingWindow(nums, k){
+
+function medianSlidingWindow(nums, k) {
   if (k > nums.length) k = nums.length;
 
   let bigHalf = new MinHeap();
@@ -104,8 +105,8 @@ function medianSlidingWindow(nums, k){
     smallHalf.offer(i);
   }
 
-  let halfKSize = Math.ceil(k / 2);
-  while (smallHalf.size() > halfKSize) {
+  let half = Math.ceil(k / 2);
+  while (smallHalf.size() > half) {
     bigHalf.offer(smallHalf.poll());
   }
 
@@ -115,30 +116,21 @@ function medianSlidingWindow(nums, k){
     if (k % 2 === 0) median = (median + nums[bigHalf.peek()]) / 2;
     result.push(median);
 
-    // Remove the idx that are out of window
-    while (bigHalf.peek() <= k - i) bigHalf.poll();
-    while (smallHalf.peek() <= k - i) smallHalf.poll();
-
-    // equalize the size of both heap
-
-    // insert the ele in right half (heap)
     if (nums[smallHalf.peek()] >= nums[i]) {
       bigHalf.offer(i);
+      while (bigHalf.peek() <= k - i) bigHalf.poll();
       smallHalf.offer(bigHalf.poll())
     } else {
       smallHalf.offer(i);
+      while (smallHalf.peek() <= k - i) smallHalf.poll();
       bigHalf.offer(smallHalf.poll())
     }
   }
   return result;
 }
 
-console.log(medianSlidingWindow([1,3,-1,-3,5,3,6,7] , 3));
-console.log(medianSlidingWindow([3,4,5,1,8,-3,5,-4] , 4));
-console.log(medianSlidingWindow([-7,2,5,-2,3,-1] , 2));
-console.log(medianSlidingWindow([1,3,-1,-3,5,3,6,7] , 5));
-console.log(medianSlidingWindow([-1,2,4,5] , 2));
-console.log(medianSlidingWindow([1,2] , 1));
-console.log(medianSlidingWindow([2147483647,-14756,21474,-2147483646,-2147483647,-5555,9999,78967] , 8));
-console.log(medianSlidingWindow([2147483647,-14756,21474,-2147483646,-2147483647,-5555,9999,78967] , 7));
-console.log(medianSlidingWindow([2147483647,-14756,21474,-2147483646,-2147483647,-5555,9999] , 2));
+console.log(medianSlidingWindow([1, 3, -1, -3, 5, 3, 6, 7] , 3))
+console.log(medianSlidingWindow([-7, 2, 5, -2, 3, -1] , 2));
+console.log(medianSlidingWindow([1, 3, -1, -3, 5, 3, 6, 7] , 5));
+console.log(medianSlidingWindow([1, 2] , 1));
+console.log(medianSlidingWindow([2147483647, -14756, 21474, -2147483646, -2147483647, -5555, 9999, 78967] , 8));

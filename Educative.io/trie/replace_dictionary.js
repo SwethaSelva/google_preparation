@@ -1,14 +1,69 @@
 class TrieNode {
   constructor() {
+    this.children = {};
+    this.endOfWord = false;
+  }
+}
+
+class Trie {
+  constructor() {
+    this.trie = {};
+  }
+  addWord(word) {
+    if (!word) return false;
+
+    let curNode = this.trie;
+    for (let i = 0; i < word.length; i++) {
+      let char = word[i];
+      if (!curNode[char]) curNode[char] = new TrieNode();
+
+      curNode = curNode[char].children;
+    }
+    curNode.complete = true;
+  }
+  replaceShortPrefix(word) {
+    if (!word) return work;
+
+    let curNode = this.trie;
+    let prefix = '';
+    for (let i = 0; i < word.length; i++) {
+      if (curNode.complete) return prefix;
+
+      let char = word[i];
+      prefix += char;
+      if (!curNode[char]) return word;
+
+      curNode = curNode[char].children;
+    }
+
+    return word;
+  }
+}
+
+export function replaceWords(sentence, dictionary) {
+  let trie = new Trie();
+  for (let i = 0; i < dictionary.length; i++) {
+    trie.addWord(dictionary[i]);
+  }
+  let sentenceWord = sentence.split(' ');
+  for (let i = 0; i < sentenceWord.length; i++) {
+    sentenceWord[i] = trie.replaceShortPrefix(sentenceWord[i]);
+  }
+  return sentenceWord.join(' ');
+}
+
+// Solution 2
+class TrieNode1 {
+  constructor() {
     this.isWord = false;
     this.children = {};
   }
 }
-class Trie {
-  constructor () {
+class Trie1 {
+  constructor() {
     this.root = {};
   }
-  insert (word) {
+  insert(word) {
     let node = this.root;
     for (let i = 0; i < word.length; i++) {
       if (!node[word[i]]) node[word[i]] = new TrieNode();
@@ -17,7 +72,7 @@ class Trie {
     }
     return true;
   }
-  search (word) {
+  search(word) {
     let node = this.root;
     let resultWord = '';
     for (let i = 0; i < word.length; i++) {
@@ -29,7 +84,7 @@ class Trie {
     return word;
   }
 }
-function replaceWords(sentence, dictionary){
+function replaceWords1(sentence, dictionary) {
   let wordFromSent = sentence.split(' ');
   let result = '';
   let trie = new Trie();
@@ -41,9 +96,9 @@ function replaceWords(sentence, dictionary){
   return result;
 }
 
-console.log(replaceWords("where there is a will there is a way" , ["wi","wa","w"]));
-console.log(replaceWords("the quick brown fox jumps over the lazy dog" , ["qui","f","la","d"]));
-console.log(replaceWords("oops there is no matching word in this sentence" , ["oops","there","is","no","matching","word","in","this","sentence"]));
-console.log(replaceWords("i was born on twenty ninth february" , ["wa","w","a","ty","nint","nin","n","feb","februa","f"]));
-console.log(replaceWords("i dont know where you are but i will find you eventually" , ["cool","how","sunday","sun","x"]));
-console.log(replaceWords("the cattle was rattled by the battery" , ["cat","bat","rat"]));
+console.log(replaceWords("where there is a will there is a way", ["wi", "wa", "w"]));
+console.log(replaceWords("the quick brown fox jumps over the lazy dog", ["qui", "f", "la", "d"]));
+console.log(replaceWords("oops there is no matching word in this sentence", ["oops", "there", "is", "no", "matching", "word", "in", "this", "sentence"]));
+console.log(replaceWords("i was born on twenty ninth february", ["wa", "w", "a", "ty", "nint", "nin", "n", "feb", "februa", "f"]));
+console.log(replaceWords("i dont know where you are but i will find you eventually", ["cool", "how", "sunday", "sun", "x"]));
+console.log(replaceWords("the cattle was rattled by the battery", ["cat", "bat", "rat"]));

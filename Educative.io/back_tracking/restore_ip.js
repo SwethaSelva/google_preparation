@@ -13,7 +13,7 @@ function isValid (s, prev = '', numStr = '', pos = 1, start = 0) {
   return remainingLen >= remainingSeg && remainingLen <= remainingSeg * VALID_SEG_LEN;
 }
 
-function restoreIpAddresses(s, pos = 1, start = 0, result = [], curStr = ''){
+function restoreIpAddresses1(s, pos = 1, start = 0, result = [], curStr = ''){
   if (start >= s.length) {
     if (curStr.length && pos === IP_SEGEMENTS + 1) result.push(curStr);
     return result;
@@ -27,6 +27,27 @@ function restoreIpAddresses(s, pos = 1, start = 0, result = [], curStr = ''){
     let appended = num;
     if (curStr.length) appended = `${curStr}.${num}`;
     restoreIpAddresses(s, pos + 1, i + 1, result, appended);
+  }
+  return result;
+}
+
+function restoreIpAddresses(s, curPos = 0, str = [], result = []){
+  if (curPos >= s.length && str.length === 4) {
+    let ip = str.join('.');
+    if (ip.length < s.length + 3) return result;
+    result.push(ip);
+    return result;
+  }
+  let limit = 4 - str.length;
+  if (s.length - curPos < limit || s.length - curPos > limit * 3) return [];
+
+  let curStr = '';
+  for (let i = curPos; i < Math.min(curPos + 3, s.length) && curStr.length < 3; i++) {
+    curStr += s[i];
+    if (+curStr > 255) break;
+    str.push(+curStr);
+    restoreIpAddresses(s, i + 1, str, result);
+    str.pop(curStr);
   }
   return result;
 }

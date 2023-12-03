@@ -1,9 +1,26 @@
 let arrToBT = require('./construct_level_order_BT');
-/**
- * @param {TreeNode} root
- * @return {void} Do not return anything, modify root in-place instead.
- */
-var flatten = function (root) {
+
+function findRightMostNode(node) {
+  if (!node.right) return node;
+  return findRightMostNode(node.right || node.left);
+}
+
+function flatten(node) {
+  if (!node) return node;
+  if (node.left) {
+    let rightMostNode = findRightMostNode(node.left);
+    rightMostNode.right = node.right;
+    node.right = node.left;
+    node.left = null;
+  }
+
+  flatten(node.right, null);
+  flatten(node.left, node.right);
+
+  return node;
+}
+
+var flattenTree = function (root) {
   if (!root) return root;
   helper(root);
   function helper(startNode) {

@@ -1,23 +1,26 @@
-function isValid (curPath, curPosition, curQueen) {
-  for (let i = 0; i < curPath.length; i++) {
+function isValid (curPath, curCol) {
+  let curRow = curPath.length
+  for (let row = 0; row < curPath.length; row++) {
+    let col = curPath[row];
+    let diff = curRow - row;
     if (
-      curPath[i] === curPosition
-      || curQueen - i + curPath[i] === curPosition
-      || curPath[i] - Math.abs(i - curQueen) === curPosition
+      col === curCol
+      || col + diff  === curCol
+      || col - diff === curCol
     ) return false;
   }
   return true;
 }
 
-function solveNQueens(n, curQueen = 0, result = [], curPath = []) {
-  if (curQueen === n) {
+function solveNQueens(n, result = [], curPath = []) {
+  if (curPath.length === n) {
     result.push(curPath);
     return result.length;
   }
 
   for (let i = 0; i < n; i++) {
-    if (!isValid(curPath, i, curQueen)) continue;
-    solveNQueens(n, curQueen + 1, result, [...curPath, i]);
+    if (!isValid(curPath, i)) continue;
+    solveNQueens(n, result, [...curPath, i]);
   }
   return result.length;
 }

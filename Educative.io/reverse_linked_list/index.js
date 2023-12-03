@@ -4,6 +4,14 @@ class Node {
     this.next = next;
   }
 }
+function lltoArr (head) {
+  let arr = [];
+  while (head) {
+    arr.push(head.val);
+    head = head.next;
+  }
+  return arr;
+} 
 
 function arrToLL (arr) {
   let head = new Node(arr[0]);
@@ -15,4 +23,8 @@ function arrToLL (arr) {
   return head;
 }
 
-module.exports = arrToLL;
+module.exports = {
+  arrToLL,
+  lltoArr,
+  Node
+};
